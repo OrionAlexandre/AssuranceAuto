@@ -65,7 +65,7 @@ class ConnectionFrame(CustomFrame):
     def config_widgets(self):
         self.container.configure(fg_color="#f6f8fa", corner_radius=7)
 
-        image_login = CTkImage(Image.open(Path("assets/ConnectionPagina.png")), size=(350, 350))
+        image_login = CTkImage(Image.open(Path("interfaces/assets/ConnectionPagina.png")), size=(350, 350))
         self.label_image_login.configure(image=image_login, text="")
         self.label_intro.configure(text="Connexion au compte d'utilisateur", font=("Segoe UI", 20),
                                    text_color="#1759b5")
@@ -153,7 +153,7 @@ class CreateAccountFrame(CustomFrame):
     def config_widgets(self):
         self.container.configure(fg_color="#f6f8fa", corner_radius=7)
 
-        image_create_account = CTkImage(Image.open("assets/noprofile.png"), size=(300, 300))
+        image_create_account = CTkImage(Image.open("interfaces/assets/noprofile.png"), size=(300, 300))
         self.label_create_account.configure(image=image_create_account, text="")
         self.label_intro.configure(text="Création du compte d'utilisateur", font=("Segoe UI", 20), text_color="#1759b5")
 
@@ -217,15 +217,17 @@ class App(CTk):
                                                   self.but_historique,
                                                   self.but_logique_calcul,
                                                   self.but_parametre]
-        images = ["assets/028-medical.png",
-                  "assets/021-user-1.png",
-                  "assets/053-group.png",
-                  "assets/031-pulse.png",
-                  "assets/064-browsers.png",
-                  "assets/064-browsers.png",
-                  "assets/073-calculator.png",
-                  "assets/038-time.png",
-                  "assets/044-settings.png"]
+        images = [
+            Path("interfaces/assets/028-medical.png"),
+            Path("interfaces/assets/021-user-1.png"),
+            Path("interfaces/assets/053-group.png"),
+            Path("interfaces/assets/031-pulse.png"),
+            Path("interfaces/assets/064-browsers.png"),
+            Path("interfaces/assets/064-browsers.png"),
+            Path("interfaces/assets/073-calculator.png"),
+            Path("interfaces/assets/038-time.png"),
+            Path("interfaces/assets/044-settings.png")
+        ]
         labels = ["  Victime blessée                    ",
                   "  Victime décédée                   ",
                   "  Victimes groupées             ",
