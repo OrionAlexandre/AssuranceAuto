@@ -1,7 +1,7 @@
-from tkinter.constants import DISABLED
+from tkinter.constants import DISABLED, END
 
 from customtkinter import CTk, CTkFrame, set_appearance_mode, set_default_color_theme, CTkButton, CTkLabel
-from tkinter import ttk
+from tkinter import StringVar
 
 from AssuranceAuto.interfaces.base import CustomFrame, CustomEntry, CustomCombobox
 from AssuranceAuto.interfaces.buttons import CustomMenuBarButton
@@ -28,6 +28,21 @@ class IncapaciteTemporaireFrame(CustomFrame):
         self.incapacite_temporaire_but = CustomMenuBarButton(self.menu_bar)
         self.incapacite_permanente_but = CustomMenuBarButton(self.menu_bar)
 
+        self.smig_cima = {"Bénin": 52000,
+                                    "Burkina Faso": 45000,
+                                    "Cameroun": 60000,
+                                    "Centrafrique": 36000,
+                                    "Congo (brazaville)": 90000,
+                                    "Côte d'Ivoire": 75000,
+                                    "Gabon": 150000,
+                                    "Guinée Bissau": 129035,
+                                    "Guinée Equatoriale": 128000,
+                                    "Mali": 40000,
+                                    "Niger": 30047,
+                                    "Sénégal": 64223,
+                                    "Tchad": 60000,
+                                    "Togo": 52500}
+
         # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         # La frame de l'IT.
         # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -41,11 +56,15 @@ class IncapaciteTemporaireFrame(CustomFrame):
 
         self.nom_person_entry = CustomEntry(master=self.frame_infos_personne_1)
         self.prenom_person_entry = CustomEntry(master=self.frame_infos_personne_1)
+
         self.age_person_entry = CustomEntry(master=self.frame_infos_personne_1)
         self.profession_person_entry = CustomEntry(master=self.frame_infos_personne_1)
-        self.salaire_person_entry = CustomEntry(master=self.frame_infos_personne_1)
+
+
+        self.var_residence, self.var_accident = StringVar(), StringVar()
         self.pays_residence_person_entry = CustomCombobox(master=self.frame_infos_personne_1)
         self.pays_accident_person_entry = CustomCombobox(master=self.frame_infos_personne_1)
+
         self.smig_pays_residence_enty = CustomEntry(master=self.frame_infos_personne_1)
         self.smig_pays_accident_entry = CustomEntry(master=self.frame_infos_personne_1)
         self.salary_entry = CustomEntry(master=self.frame_infos_personne_1)
@@ -113,9 +132,12 @@ class IncapaciteTemporaireFrame(CustomFrame):
         CTkLabel(self.frame_infos_personne_1, text="SMIG :",
                  anchor="w", font=("Segoe UI", 14),
                  text_color="#838C9A").place(relx=0.625, rely=0.47)
-        CTkLabel(self.frame_infos_personne_1, text="Salaire :",
+        CTkLabel(self.frame_infos_personne_1, text="Salaire avant l'accident :",
                  anchor="w", font=("Segoe UI", 14),
                  text_color="#838C9A").place(relx=0.760, rely=0.03)
+        CTkLabel(self.frame_infos_personne_1, text="Salaire après l'accident :",
+                 anchor="w", font=("Segoe UI", 14),
+                 text_color="#838C9A").place(relx=0.760, rely=0.47)
 
         # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         # La frame de l'IP.
@@ -145,10 +167,55 @@ class IncapaciteTemporaireFrame(CustomFrame):
         self.smig_pays_residence_enty.configure(fg_color="#dde0ec", state=DISABLED)
         self.smig_pays_accident_entry.configure(fg_color="#dde0ec", state=DISABLED)
 
+        self.pays_accident_person_entry.config(textvariable=self.var_accident)
+        self.pays_accident_person_entry.set("Togo")
+        self.fill_combobox(self.smig_pays_accident_entry, "Togo")
 
+        self.pays_residence_person_entry.config(textvariable=self.var_residence)
+        self.pays_residence_person_entry.set("Togo")
+        self.fill_combobox(self.smig_pays_residence_enty, "Togo")
+
+        self.var_residence.trace_add("write", self.on_change_residence)
+        self.var_accident.trace_add("write", self.on_change_accident)
 
         # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         # La frame de l'IP.
         # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         self.incapacite_permanente_frame.configure(fg_color="#f6f8fa", corner_radius=7)
+
+    def fill_combobox(self, combobox, value: str):
+        combobox.configure(state="normal")
+        combobox.insert(0, self.smig_cima.get(value))
+        combobox.configure(state=DISABLED)
+
+    def on_change_accident(self, *args):
+        print("Hello world")
+        self.smig_pays_accident_entry.configure(state="normal")
+        self.smig_pays_accident_entry.delete(0, END)
+        self.smig_pays_accident_entry.insert(0, self.smig_cima.get(self.var_accident.get()))
+        self.smig_pays_accident_entry.configure(state=DISABLED)
+
+        # Algorithme de comparaison des smig.
+        if self.smig_cima.get(self.var_accident.get()) > self.smig_cima.get(self.var_residence.get()):
+            self.smig_pays_accident_entry.configure(border_color="red")
+            self.smig_pays_residence_enty.configure(border_color="#dde0ec")
+        else:
+            self.smig_pays_accident_entry.configure(border_color="#dde0ec")
+            self.smig_pays_residence_enty.configure(border_color="red")
+        pass
+
+    def on_change_residence(self, *args):
+        print("Hello world")
+        self.smig_pays_residence_enty.configure(state="normal")
+        self.smig_pays_residence_enty.delete(0, END)
+        self.smig_pays_residence_enty.insert(0, self.smig_cima.get(self.var_residence.get()))
+        self.smig_pays_residence_enty.configure(state=DISABLED)
+
+        # Algorithme de comparaison des smig.
+        if self.smig_cima.get(self.var_accident.get()) > self.smig_cima.get(self.var_residence.get()):
+            self.smig_pays_accident_entry.configure(border_color="red")
+            self.smig_pays_residence_enty.configure(border_color="#dde0ec")
+        else:
+            self.smig_pays_accident_entry.configure(border_color="#dde0ec")
+            self.smig_pays_residence_enty.configure(border_color="red")
         pass
