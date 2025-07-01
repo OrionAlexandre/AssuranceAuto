@@ -47,10 +47,13 @@ class IncapaciteTemporaireFrame(CustomFrame):
         # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         # La frame de l'IT.
         # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        # Les différentes frames.
         self.incapacite_temporaire_frame = CTkFrame(self)
         self.frame_infos_personne_1 = CTkFrame(self.incapacite_temporaire_frame)
         self.frame_infos_personne_it = CTkFrame(master=self.incapacite_temporaire_frame)
         self.frame_results_it = CTkFrame(master=self.incapacite_temporaire_frame)
+
+        # Les bouttons
         self.compute_it_but = CTkButton(master=self.incapacite_temporaire_frame)
         self.but_save_it = CTkButton(master=self.incapacite_temporaire_frame)
         self.but_clean_it = CTkButton(master=self.incapacite_temporaire_frame)
@@ -199,6 +202,7 @@ class IncapaciteTemporaireFrame(CustomFrame):
         # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         # La frame de l'IP.
         # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
         # self.incapacite_permanente_frame.place(relwidth=0.96, relheight=0.25, relx=0.02, rely=0.35)
         pass
 
@@ -272,6 +276,10 @@ class IncapaciteTemporaireFrame(CustomFrame):
         # La frame de l'IP.
         # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         self.incapacite_permanente_frame.configure(fg_color="#f6f8fa", corner_radius=7)
+
+
+        # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~# La frame de l'IP.
+        # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     def fill_combobox(self, combobox, value: str):
         combobox.configure(state="normal")
