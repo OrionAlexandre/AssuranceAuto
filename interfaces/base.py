@@ -1,11 +1,17 @@
 from abc import ABC, abstractmethod
 from customtkinter import CTk, CTkFrame, CTkEntry
-from tkinter import ttk, StringVar
+from functools import lru_cache
+from tkinter import ttk
+
+
+MAX_SIZE_MEMOIZATION = 1000
 
 
 class CustomFrame(CTkFrame, ABC):
     def __init__(self, master: CTk | CTkFrame):
         super(CustomFrame, self).__init__(master=master)
+
+        self.__name = ""
 
         self.config_frame()
         self.create_widgets()
@@ -20,18 +26,22 @@ class CustomFrame(CTkFrame, ABC):
     def name(self, value: str):
         self.__name = value
 
+    @lru_cache(maxsize=MAX_SIZE_MEMOIZATION)
     @abstractmethod
     def config_frame(self):
         pass
 
+    @lru_cache(maxsize=MAX_SIZE_MEMOIZATION)
     @abstractmethod
     def create_widgets(self):
         pass
 
+    @lru_cache(maxsize=MAX_SIZE_MEMOIZATION)
     @abstractmethod
     def place_widgets(self):
         pass
 
+    @lru_cache(maxsize=MAX_SIZE_MEMOIZATION)
     @abstractmethod
     def config_widgets(self):
         pass
