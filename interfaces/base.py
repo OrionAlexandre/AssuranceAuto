@@ -2,6 +2,7 @@ from abc import ABC, abstractmethod
 from customtkinter import CTk, CTkFrame, CTkEntry
 from functools import lru_cache
 from tkinter import ttk
+from tkinter.constants import DISABLED
 
 
 MAX_SIZE_MEMOIZATION = 1000
@@ -53,6 +54,7 @@ class CustomEntry(CTkEntry, ABC):
 
         self.configure(font=("Segoe UI", 15),
                        border_width=2, border_color="#dde0ec")
+    pass
 
 
 class CustomCombobox(ttk.Combobox, ABC):
@@ -96,4 +98,11 @@ class CustomCombobox(ttk.Combobox, ABC):
     pass
 
 
+class CustomResultatEntry(CTkEntry):
+    def __init__(self, master: CTk | CTkFrame):
+        super(CustomResultatEntry, self).__init__(master=master)
+
+        self.configure(font=("Segoe UI", 15),
+                   border_width=2, border_color="#dde0ec", fg_color="#dde0ec", state=DISABLED)
+    pass
 
