@@ -2,6 +2,7 @@ from tkinter.constants import DISABLED, END
 
 from customtkinter import CTk, CTkFrame, set_appearance_mode, set_default_color_theme, CTkButton, CTkLabel
 from tkinter import StringVar
+from tkinter.ttk import Combobox
 
 from AssuranceAuto.interfaces.base import CustomFrame, CustomEntry, CustomCombobox
 from AssuranceAuto.interfaces.buttons import CustomMenuBarButton
@@ -67,7 +68,20 @@ class IncapaciteTemporaireFrame(CustomFrame):
 
         self.smig_pays_residence_enty = CustomEntry(master=self.frame_infos_personne_1)
         self.smig_pays_accident_entry = CustomEntry(master=self.frame_infos_personne_1)
+
         self.salary_entry = CustomEntry(master=self.frame_infos_personne_1)
+        self.salary_new_entry = CustomEntry(master=self.frame_infos_personne_1)
+
+        self.infos_but = CTkButton(self.frame_infos_personne_1)
+
+        self.duree_1 = CustomEntry(master=self.frame_infos_personne_it)
+        self.taux_1 = CustomEntry(master=self.frame_infos_personne_it)
+        self.duree_2 = CustomEntry(master=self.frame_infos_personne_it)
+        self.taux_2 = CustomEntry(master=self.frame_infos_personne_it)
+        self.duree_3 = CustomEntry(master=self.frame_infos_personne_it)
+        self.taux_3 = CustomEntry(master=self.frame_infos_personne_it)
+        self.pretium_doloris = Combobox(master=self.frame_infos_personne_it)
+        self.prejudice_esthetique = Combobox(master=self.frame_infos_personne_it)
 
 
         # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -87,7 +101,7 @@ class IncapaciteTemporaireFrame(CustomFrame):
         # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         self.incapacite_temporaire_frame.place(relwidth=0.96, relheight=0.9, relx=0.02, rely=0.07)
         self.frame_infos_personne_1.place(relwidth=0.96, relheight=0.25, relx=0.02, rely=0.04)
-        self.frame_infos_personne_it.place(relwidth=0.96, relheight=0.1, relx=0.02, rely=0.35)
+
         self.compute_it_but.place(relx=0.850, rely=0.455, relwidth=0.10)
         self.frame_results_it.place(relwidth=0.96, relheight=0.45, relx=0.02, rely=0.50)
         self.but_save_it.place(relx=0.850, rely=0.95, relwidth=0.10)
@@ -106,6 +120,9 @@ class IncapaciteTemporaireFrame(CustomFrame):
         self.smig_pays_accident_entry.place(relx=0.620, rely=0.65, relwidth=0.12)
 
         self.salary_entry.place(relx=0.755, rely=0.2, relwidth=0.12)
+        self.salary_new_entry.place(relx=0.755, rely=0.65, relwidth=0.12)
+
+        self.infos_but.place(relx=0.93, rely=0.87, relwidth=0.05, relheight=0.1)
 
         # Les différents labels (Pas besoin de les stocker dans des variables, ils sont directement placés).
         CTkLabel(self.frame_infos_personne_1, text="Nom :",
@@ -138,6 +155,46 @@ class IncapaciteTemporaireFrame(CustomFrame):
         CTkLabel(self.frame_infos_personne_1, text="Salaire après l'accident :",
                  anchor="w", font=("Segoe UI", 14),
                  text_color="#838C9A").place(relx=0.760, rely=0.47)
+        #------------------------------------------------------------------------------------------------
+        #------------------------------------------------------------------------------------------------
+        self.frame_infos_personne_it.place(relwidth=0.96, relheight=0.1, relx=0.02, rely=0.35)
+        CTkLabel(self.incapacite_temporaire_frame, text="IT Période 1",
+                 anchor="w", font=("Segoe UI", 14),
+                 text_color="#838C9A").place(relx=0.040, rely=0.33)
+        CTkLabel(self.incapacite_temporaire_frame, text="IT Période 2",
+                 anchor="w", font=("Segoe UI", 14),
+                 text_color="#838C9A").place(relx=0.24, rely=0.33)
+        CTkLabel(self.incapacite_temporaire_frame, text="IT Période 3",
+                 anchor="w", font=("Segoe UI", 14),
+                 text_color="#838C9A").place(relx=0.48, rely=0.33)
+        CTkLabel(self.incapacite_temporaire_frame, text="Pretium Doloris",
+                 anchor="w", font=("Segoe UI", 14),
+                 text_color="#838C9A").place(relx=0.66, rely=0.33)
+        CTkLabel(self.incapacite_temporaire_frame, text="Préjudice esthétique",
+                 anchor="w", font=("Segoe UI", 14),
+                 text_color="#838C9A").place(relx=0.83, rely=0.33)
+
+        CTkLabel(self.incapacite_temporaire_frame, text="   Durée                            Taux",
+                 anchor="w", font=("Segoe UI", 9),
+                 text_color="#838C9A").place(relx=0.03, rely=0.365, relheight=0.015)
+        CTkLabel(self.incapacite_temporaire_frame, text="Durée                            Taux",
+                 anchor="w", font=("Segoe UI", 9),
+                 text_color="#838C9A").place(relx=0.24, rely=0.365, relheight=0.015)
+        CTkLabel(self.incapacite_temporaire_frame, text="Durée                            Taux",
+                 anchor="w", font=("Segoe UI", 9),
+                 text_color="#838C9A").place(relx=0.48, rely=0.365, relheight=0.015)
+
+        self.duree_1.place(relx=0.01, rely=0.40, relwidth=0.07)
+        self.taux_1.place(relx=0.09, rely=0.40, relwidth=0.07)
+
+        self.duree_2.place(relx=0.22, rely=0.40, relwidth=0.07)
+        self.taux_2.place(relx=0.30, rely=0.40, relwidth=0.07)
+
+        self.duree_3.place(relx=0.47, rely=0.40, relwidth=0.07)
+        self.taux_3.place(relx=0.55, rely=0.40, relwidth=0.07)
+
+        self.pretium_doloris.place(relx=0.66, rely=0.40, relwidth=0.10, relheight=0.3)
+        self.prejudice_esthetique.place(relx=0.83, rely=0.40, relwidth=0.10, relheight=0.3)
 
         # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         # La frame de l'IP.
@@ -154,7 +211,7 @@ class IncapaciteTemporaireFrame(CustomFrame):
         # La frame de l'IT.
         # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         self.incapacite_temporaire_frame.configure(fg_color="#f6f8fa", corner_radius=7)
-        self.frame_infos_personne_it.configure(fg_color="transparent", border_width=2, border_color="#dde0ec")
+
         self.compute_it_but.configure(fg_color="#0b8719", border_color="#0ea617",
                                       border_width=2, hover_color="#0ea617",
                                       text="Computer")
@@ -177,6 +234,39 @@ class IncapaciteTemporaireFrame(CustomFrame):
 
         self.var_residence.trace_add("write", self.on_change_residence)
         self.var_accident.trace_add("write", self.on_change_accident)
+
+        self.infos_but.configure(fg_color="#16265c", border_width=1,
+                              border_color="#dde0ec", corner_radius=5,
+                              text="infos", font=("Freestyle Script", 17),
+                                 text_color="white")
+
+        # La seconde frame.
+        self.frame_infos_personne_it.configure(fg_color="transparent", border_width=2, border_color="#dde0ec")
+        self.duree_1.configure(placeholder_text="Jours")
+        self.taux_1.configure(placeholder_text="0-100")
+        self.duree_2.configure(placeholder_text="Jours")
+        self.taux_2.configure(placeholder_text="0-100")
+        self.duree_3.configure(placeholder_text="Jours")
+        self.taux_3.configure(placeholder_text="0-100")
+
+        self.pretium_doloris.config(font=("Segoe UI", 11),
+                                    values=["-", "Très léger",
+                                            "Léger",
+                                            "Modéré",
+                                            "Moyen",
+                                            "Assez important",
+                                            "Très important",
+                                            "Exceptionnel"], state="readonly")
+        self.prejudice_esthetique.config(font=("Segoe UI", 11),
+                                         values=["-", "Très léger",
+                                            "Léger",
+                                            "Modéré",
+                                            "Moyen",
+                                            "Assez important",
+                                            "Très important",
+                                            "Exceptionnel"], state="readonly")
+        self.pretium_doloris.set("-")
+        self.prejudice_esthetique.set("-")
 
         # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         # La frame de l'IP.
